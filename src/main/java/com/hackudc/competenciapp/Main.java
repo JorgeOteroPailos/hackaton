@@ -45,35 +45,5 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch();
     }
-
-
-
-
-
-
-
-
-    public void enviarMensaje(StringBuilder jsonBuilder){
-        try (OutputStream os = conexion.getOutputStream()) {
-            byte[] input = jsonBuilder.toString().getBytes(StandardCharsets.UTF_8);
-            os.write(input);
-            System.out.println("ENVIADO: " + jsonBuilder.toString());
-            int rc = conexion.getResponseCode();
-            if(rc!=200){
-                System.out.println("ERROR: rc=" + rc);
-            }
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(conexion.getInputStream(), StandardCharsets.UTF_8))) {
-            StringBuilder aux = new StringBuilder(new String());
-            String respuesta;
-            while ((respuesta = br.readLine()) != null) {
-                aux.append(respuesta.trim());
-            }
-            System.out.println("Respuesta del servidor: " + aux);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    
 }

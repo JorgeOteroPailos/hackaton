@@ -1,5 +1,6 @@
 package com.hackudc.competenciapp;
 
+import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,18 +14,28 @@ import javafx.application.Platform;
 
 public class CPrincipal {
 
-    public Button botoncambiarVentana;
     public static final String nombreVentanaConsultas="Consultas";
     private static final String nombreVentanaAportaciones="Aportaciones";
-    public Label nombreVentana;
-    public ScrollPane scrollPaneMensajes;
-    public VBox listaMensajes;
-    public TextField messageTextField;
-    public Button sendButton;
     private Chat[] chats;
+
+    @FXML
+    public Button botoncambiarVentana;
+    @FXML
+    public Label nombreVentana;
+    @FXML
+    public ScrollPane scrollPaneMensajes;
+    @FXML
+    public VBox listaMensajes;
+    @FXML
+    public TextField messageTextField;
+    @FXML
+    public Button sendButton;
+
+
 
     private int estoyEnConsultas;
 
+    @FXML
     public void cambiarVentana(){
         if(estoyEnConsultas==1){
             estoyEnConsultas=0;
@@ -36,9 +47,6 @@ public class CPrincipal {
             botoncambiarVentana.setText(nombreVentanaConsultas);
             nombreVentana.setText(nombreVentanaConsultas);
         }
-        nombreVentana.setText(estoyEnConsultas==1 ? nombreVentanaConsultas : nombreVentanaAportaciones);
-        if(estoyEnConsultas==1)estoyEnConsultas=0;
-        else estoyEnConsultas=1;
     }
 
     public void initialize(){
@@ -70,7 +78,7 @@ public class CPrincipal {
         sendButton.setOnAction(event -> enviarMensaje());
 
     }
-
+    @FXML
     private void enviarMensaje(){
         String prompt = messageTextField.getText();
         messageTextField.clear();
@@ -90,7 +98,7 @@ public class CPrincipal {
 
     private void agregarMensaje(Mensaje mensaje){
         chats[mensaje.remitente].anadirMensaje(mensaje);
-        Platform.runLater(()->{
+        //Platform.runLater(()->{
             HBox contenedorMensaje = new HBox();
             VBox mensajeVBox = new VBox(5);
             mensajeVBox.setMaxWidth(300); // Limitar el ancho máximo de la burbuja del mensaje
@@ -116,8 +124,8 @@ public class CPrincipal {
             listaMensajes.getChildren().add(contenedorMensaje);
 
             // Desplazar automáticamente al final del ScrollPane
-            Platform.runLater(() -> scrollPaneMensajes.setVvalue(1.0));
-        });
+            //Platform.runLater(() -> scrollPaneMensajes.setVvalue(1.0));
+        //});
     }
 
 
