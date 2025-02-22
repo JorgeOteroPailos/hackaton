@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="125.0" prefWidth="260.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hackudc.competenciapp.CInicioSesion">
+<AnchorPane onKeyPressed="#manejadorTeclas" prefHeight="125.0" prefWidth="260.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hackudc.competenciapp.CInicioSesion">
    <children>
       <VBox prefHeight="101.0" prefWidth="251.0" spacing="5.0">
          <children>
@@ -33,6 +33,6 @@
             <Insets left="20.0" right="20.0" />
          </padding>
       </VBox>
-      <Button layoutX="196.0" layoutY="89.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="49.0" text="Entrar" />
+      <Button fx:id="enter" layoutX="196.0" layoutY="89.0" mnemonicParsing="false" onAction="#verificarUsuario" prefHeight="26.0" prefWidth="49.0" text="Entrar" />
    </children>
 </AnchorPane>
