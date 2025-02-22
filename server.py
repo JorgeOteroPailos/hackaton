@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field
 import sqlite3
+import uvicorn
 from langchain_ollama import OllamaLLM
 from langchain_ollama.chat_models import ChatOllama
 from langchain.prompts import PromptTemplate
@@ -9,7 +10,7 @@ from langchain.chains import LLMChain
 from fastapi import FastAPI, HTTPException
 import math
 
-app = FastAPI()
+server = FastAPI()
 
 #Estructura que recibe en la conexión
 class InsertarStruct(BaseModel):
@@ -66,15 +67,16 @@ def vectorize_text(texts, embeddings_model):
     return embeddings_model.embed_documents(texts)
 
 # Función para encontrar los trabajadores más similares utilizando embeddings
-def find_top_matching_workers_with_embeddings(query, trabajadores, top_n, embeddings_model):
+def find_top_matching_workers_with_embeddings(query, trabajadores, top_n=5, embeddings_model=None):
     # Vectoriza la consulta
     query_embedding = embeddings_model.embed_query(query)
     
     # Crear las competencias y nombres de los trabajadores en formato de texto
-    trabajadores_texto = [f"{nombre}: {competencias}" for nombre, competencias in trabajadores]
+    #trabajadores_texto = [f"{nombre}: {competencias}" for nombre, competencias in trabajadores]
+    competencias_texto = [f"{competencias}" for competencias in trabajadores]
     
     # Vectoriza las competencias de los trabajadores
-    worker_embeddings = vectorize_text(trabajadores_texto, embeddings_model)
+    worker_embeddings = vectorize_text(competencias_texto, embeddings_model)
 
     # Calcular similitud de coseno entre la consulta y los trabajadores
     scores = []
@@ -100,14 +102,12 @@ def cosine_similarity(vec1, vec2):
 embeddings_model = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
 
-# 📌 **Endpoint para consultar trabajadores**
-@app.get("/consultar")
+#Endpoint para consultar trabajadores
+@server.post("/consultar")
 def consultar_trabajadores(query: str):
     trabajadores = get_trabajadores()
-    if not trabajadores:
-        raise HTTPException(status_code=404, detail="No hay trabajadores en la base de datos")
 
-    resultados = find_top_matching_workers_with_embeddings(query, trabajadores,top_n,embeddings_model)
+    resultados = find_top_matching_workers_with_embeddings(query, trabajadores, top_n,embeddings_model)
     # Filtrar trabajadores con score < min_similarity
     filtered_workers = [(nombre, competencias, score) for nombre, competencias, score in matching_workers if score >= min_similarity]
 
@@ -117,8 +117,8 @@ def consultar_trabajadores(query: str):
     return [{"nombre": nombre, "competencias": competencias, "similitud": round(score, 2)} for nombre, competencias, score in filtered_workers]
 
 
-# 📌 **Endpoint para agregar competencia**
-@app.post("/insertar")
+#  Endpoint para agregar competencia
+@server.post("/insertar")
 def agregar_competencia(request: InsertarStruct):
     model_with_structure = llm.with_structured_output(CompetenciaResponse)
     structured_output = model_with_structure.invoke(request.frase_competencia)
@@ -128,7 +128,6 @@ def agregar_competencia(request: InsertarStruct):
     return {"mensaje": f"Competencia '{competencia}' agregada a {request.nombre}"}
 
 
-# 🚀 **Ejecutar servidor**
+# Ejecutar servidor
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(server, host="0.0.0.0", port=8000)
