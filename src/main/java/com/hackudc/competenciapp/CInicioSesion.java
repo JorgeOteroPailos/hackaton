@@ -25,7 +25,7 @@ public class CInicioSesion {
     @FXML
     private void verificarUsuario() {
         String aux = Utils.verificarUsuario(clave.getText());
-        if(!aux.equals("false")){
+        if(!aux.equals("false")&&!aux.isEmpty()){
             abrirCPrincipal(aux);
         }else {
 

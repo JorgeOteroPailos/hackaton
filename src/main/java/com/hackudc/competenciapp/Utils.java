@@ -32,7 +32,13 @@ public class Utils {
     //Función para verificar el usuario
     public static String verificarUsuario(String clave){
         setConexionInicioSesion();
-        StringBuilder jsonBuilder = new StringBuilder("{\"clave\": \"" + clave + "\"}");
+        StringBuilder jsonBuilder = new StringBuilder("{\"clave\": \""+clave+"\"}");
+        return enviarMensaje(jsonBuilder);
+    }
+
+    public static String hacerConsulta(String consulta){
+        setConexionConsulta();
+        StringBuilder jsonBuilder = new StringBuilder("{\"query\": \""+consulta+"\"}");
         return enviarMensaje(jsonBuilder);
     }
 
@@ -41,11 +47,12 @@ public class Utils {
         try (OutputStream os = conexion.getOutputStream()) {
             byte[] input = jsonBuilder.toString().getBytes(StandardCharsets.UTF_8);
             os.write(input);
-            System.out.println("ENVIADO: " + jsonBuilder.toString());
             int rc = conexion.getResponseCode();
             if (rc != 200) {
                 System.out.println("ERROR: rc=" + rc);
             }
+            System.out.println("ENVIADO: " + jsonBuilder.toString());
+
         } catch (
                 IOException e) {
             e.printStackTrace();
@@ -64,15 +71,11 @@ public class Utils {
         return respuesta.toString();
     }
 
-    public static String hacerConsulta(String consulta){
-        setConexionConsulta();
-        StringBuilder jsonBuilder = new StringBuilder("{\"query\":"+consulta+"}");
-        return enviarMensaje(jsonBuilder);
-    }
+
 
     public static String insertarDatos(String datos){
         setConexionInsertarDatos();
-        StringBuilder jsonBuilder = new StringBuilder("{\"query\":"+datos+"}");
+        StringBuilder jsonBuilder = new StringBuilder("{\"query\": \""+datos+"\"}");
         return enviarMensaje(jsonBuilder);
     }
 
