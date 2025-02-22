@@ -25,7 +25,7 @@
                         <Font size="10.0" />
                      </font>
                   </Label>
-                  <TextField prefHeight="26.0" prefWidth="148.0" />
+                  <TextField fx:id="clave" prefHeight="26.0" prefWidth="148.0" />
                </children>
             </HBox>
          </children>
