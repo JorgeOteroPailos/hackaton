@@ -21,6 +21,8 @@ class InsertarStruct(BaseModel):
 class CompetenciaResponse(BaseModel):
     item: str = Field(description="La competencia aprendida referida en la frase")
 
+os.makedirs("documentos", exist_ok=True)
+
 # Conexión a la base de datos SQLite
 def get_trabajadores():
     conn = sqlite3.connect('empresa.db')
@@ -107,7 +109,7 @@ def comprobar_inicio_sesion(clave):
     if resultado:
         return resultado[0]
     else:
-        return "0"  
+        return "False"  
 
 #Endpoint para consultar trabajadores con conocimientos sobre un tema específico
 @server.post("/consultar")
