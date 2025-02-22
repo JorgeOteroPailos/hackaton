@@ -23,16 +23,26 @@ public class CPrincipal {
     public Button sendButton;
     private Chat[] chats;
 
-    private int estoyEnConsultas = 1;
+    private int estoyEnConsultas;
 
     public void cambiarVentana(){
-        botoncambiarVentana.setText(estoyEnConsultas==1 ? nombreVentanaAportaciones : nombreVentanaConsultas);
+        if(estoyEnConsultas==1){
+            estoyEnConsultas=0;
+            botoncambiarVentana.setText(nombreVentanaAportaciones);
+            nombreVentana.setText(nombreVentanaAportaciones);
+        }
+        else {
+            estoyEnConsultas=1;
+            botoncambiarVentana.setText(nombreVentanaConsultas);
+            nombreVentana.setText(nombreVentanaConsultas);
+        }
         nombreVentana.setText(estoyEnConsultas==1 ? nombreVentanaConsultas : nombreVentanaAportaciones);
-        estoyEnConsultas= estoyEnConsultas==1 ? 0 : 1;
+        if(estoyEnConsultas==1)estoyEnConsultas=0;
+        else estoyEnConsultas=1;
     }
 
     public void initialize(){
-        estoyEnConsultas =1;
+        estoyEnConsultas = 1;
         botoncambiarVentana.setText(nombreVentanaAportaciones);
         nombreVentana.setText(nombreVentanaConsultas);
 
@@ -63,15 +73,19 @@ public class CPrincipal {
 
     private void enviarMensaje(){
         String prompt = messageTextField.getText();
-        String respuesta = "Lo siento, parece que no puedo responderte ahora mismo, inténtalo de nuevo más tarde";
+        messageTextField.clear();
+        String respuesta;
+
         if (!prompt.isBlank()) {
+            agregarMensaje(new Mensaje(prompt,0));
             if(estoyEnConsultas==1){
+                System.out.println("Estoy en consultas");
                 respuesta=Utils.hacerConsulta(prompt);
             }else{
                 respuesta=Utils.insertarDatos(prompt);
             }
+            agregarMensaje(new Mensaje(respuesta,1));
         }
-        agregarMensaje(new Mensaje(respuesta,1));
     }
 
     private void agregarMensaje(Mensaje mensaje){
@@ -104,20 +118,6 @@ public class CPrincipal {
             // Desplazar automáticamente al final del ScrollPane
             Platform.runLater(() -> scrollPaneMensajes.setVvalue(1.0));
         });
-    }
-
-    private void actualizarMensajes() {
-        listaMensajes.getChildren().clear();
-
-        for (Mensaje mensaje : chats[0].getMensajes()) {
-            agregarMensaje(mensaje);
-        }
-        for (Mensaje mensaje : chats[1].getMensajes()) {
-            agregarMensaje(mensaje);
-        }
-        // Desplaza automáticamente al final después de cargar los mensajes
-        Platform.runLater(() -> scrollPaneMensajes.setVvalue(1.0));
-
     }
 
 
