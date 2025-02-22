@@ -15,10 +15,15 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
+    //Variables para la conexión
     private HttpURLConnection conexion;
-    URL consultas;
-    URL insertarDatos;
-    URL inicioSesion;
+    private URL consultas;
+    private URL insertarDatos;
+    private URL inicioSesion;
+
+    //Variables para guardar datos
+    private String clave;
+    private String nombre;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -31,7 +36,7 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("InicioSesion.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 260, 125);
         CInicioSesion controller = fxmlLoader.getController();
-        controller.initCInicioSesion(this);
+        controller.initCInicioSesion(stage);
         stage.setTitle("Inicio Sesión");
         stage.setScene(scene);
         stage.show();
@@ -42,14 +47,17 @@ public class Main extends Application {
     }
 
 
-    public void verificarUsuario(String clave){
-        setConexionConsulta();
-        StringBuilder jsonBuilder = new StringBuilder("{\"strings\":[");
-        jsonBuilder.append("\"" + clave + "\"]}");
+
+
+
+
+
+
+    public void enviarMensaje(StringBuilder jsonBuilder){
         try (OutputStream os = conexion.getOutputStream()) {
             byte[] input = jsonBuilder.toString().getBytes(StandardCharsets.UTF_8);
             os.write(input);
-            System.out.println("ENVIADO: " + clave);
+            System.out.println("ENVIADO: " + jsonBuilder.toString());
             int rc = conexion.getResponseCode();
             if(rc!=200){
                 System.out.println("ERROR: rc=" + rc);
@@ -66,37 +74,6 @@ public class Main extends Application {
             System.out.println("Respuesta del servidor: " + aux);
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    public void setConexionConsulta() {
-        try {
-            conexion = (HttpURLConnection) consultas.openConnection();
-            conexion.setRequestMethod("POST");
-            conexion.setRequestProperty("Content-Type", "application/json");
-            conexion.setDoOutput(true);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public void setConexionInicioSesion() {
-        try {
-            conexion = (HttpURLConnection) inicioSesion.openConnection();
-            conexion.setRequestMethod("POST");
-            conexion.setRequestProperty("Content-Type", "application/json");
-            conexion.setDoOutput(true);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public void setConexionInsertarDatos() {
-        try {
-            conexion = (HttpURLConnection) insertarDatos.openConnection();
-            conexion.setRequestMethod("POST");
-            conexion.setRequestProperty("Content-Type", "application/json");
-            conexion.setDoOutput(true);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 }
