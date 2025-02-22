@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field
 import sqlite3
 import uvicorn
+import os
 from langchain_ollama import OllamaLLM
 from langchain_ollama.chat_models import ChatOllama
 from langchain.prompts import PromptTemplate
@@ -12,7 +13,14 @@ import math
 
 server = FastAPI()
 
-#Estructura que recibe por la conexión http
+
+#Estructuras que recibe por la conexión http
+
+#Estructura para verificar usuario
+class sesionRequest(BaseModel):
+    clave:str
+
+#Estructura para insertar datos
 class InsertarStruct(BaseModel):
     clave: str
     frase_competencia: str
@@ -138,10 +146,15 @@ def agregar_competencia(request: InsertarStruct):
     return {f"Competencia '{competencia}' agregada a {request.nombre}"}
 
 @server.post("/sesion")
-def inicio_sesion(clave: str):
-    value = comprobar_inicio_sesion(clave)
+def inicio_sesion(sesionRequest: sesionRequest):
+    value = comprobar_inicio_sesion(sesionRequest.clave)
+    return value
 
 
+
+# Ejecutar servidor
+if __name__ == "__main__":
+    uvicorn.run(server, host="0.0.0.0", port=8000)
 
 # Ejecutar servidor
 if __name__ == "__main__":
