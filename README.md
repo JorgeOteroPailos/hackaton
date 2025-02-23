@@ -75,7 +75,9 @@ Este proyecto fue inspirado por el reto propuesto por Gradiant en el HackUDC 202
 
 ### What it does
 
-El proyecto desarrollado almacena, a partir de sencillos prompts en lenguaje natural, las competencias que adquiere cada uno de sus usuarios. De igual manera, tras un prompt en lenguaje natural para la consulta, informa al usuario de otros trabajadores que puedan ser competentes en la disciplina que corresponda. 
+En esencia, el proyecto soluciona la "pérdida de información" que se produce cuando en una empresa alguien gasta el tiempo y los recursos en aprender a dominar una tecnología y posteriormente otra gente vuelve a hacerlo por desconocimiento de que esto ya había sucedido en la empresa en primer lugar. Si existiese algún sistema de registrar y acceder a esta información, las empresas (o cualquier otra organización) podrían facilitar la colaboración entre empleados y ahorrar grandes cantidades de tiempo y recursos, además de favorecer la cooperación y un buen entorno de trabajo
+
+CompetencIApp almacena, a partir de sencillos prompts en lenguaje natural, las competencias que adquiere cada uno de sus usuarios. De igual manera, tras un prompt en lenguaje natural para la consulta, informa al usuario de otros trabajadores que puedan ser competentes en la disciplina que corresponda. 
 
 Internamente, transforma la parte "relevante" de cada prompt en embeddings que puede almacenar y comparar para encontrar similitudes entre competencias semánticamente parecidas (por ejemplo, relacionar a un usuario que maneja "MPI" con uno que busca "programación paralela") y aportar un servicio de utilidad de una manera accesible y user-friendly.
 
