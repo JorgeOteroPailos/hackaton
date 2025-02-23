@@ -1,6 +1,6 @@
 # CompetenciApp
 
-**CompetencIApp** es una aplicación diseñada para gestionar y consultar competencias de empleados en una empresa utilizando procesamiento de lenguaje natural e inteligencia artificial. Cuando un empleado o grupo de empleados trabajan con una tecnología, estos aprenden sobre ella, y podrán ser de utilidad para brindar ayuda a la hora de trabajar con la misma en el futuro. CompetenciApp utiliza herramientas basadas en la Inteligencia Artificial para facilitar el registro y la posterior localización de dichas experiencias útiles, evitando que el usuario no registre sus experiencias por falta de una buena accesibilidad.
+**CompetencIApp** es una aplicación diseñada para gestionar y consultar competencias de empleados en una empresa utilizando procesamiento de lenguaje natural e inteligencia artificial. Cuando un empleado o grupo de empleados trabajan con una tecnología, estos aprenden sobre ella, y podrán ser de utilidad para brindar ayuda a la hora de trabajar con la misma en el futuro. CompetencIApp utiliza herramientas basadas en la Inteligencia Artificial para facilitar el registro y la posterior localización de dichas experiencias útiles, evitando que el usuario no registre sus experiencias por falta de una buena accesibilidad.
 
 ## Características principales
 
