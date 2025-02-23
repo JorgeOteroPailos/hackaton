@@ -144,7 +144,7 @@ def consultar_trabajadores(request : consultaStruct):
         prompt_template = """
         "{query}".
         Comenta los trabajadores junto con sus correos de la lista las diferentes competencias de cada uno (no uses comillas
-        , comillas dobles y usa puntos y seguido) de no haber trabajadores di que no has encontrado ninguno que se adecue a la descripción.
+        , comillas dobles y usa puntos y seguido)
         """
 
         prompt = PromptTemplate(input_variables=["query"], template=prompt_template)      
