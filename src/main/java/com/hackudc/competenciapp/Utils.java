@@ -1,3 +1,4 @@
+
 package com.hackudc.competenciapp;
 
 import javafx.application.Platform;
@@ -12,6 +13,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Utils {
     private static HttpURLConnection conexion;
@@ -46,7 +49,8 @@ public class Utils {
         setConexionConsulta();
         StringBuilder jsonBuilder = new StringBuilder("{\"query\": \""+consulta+"\"}");
         String respuesta = enviarMensaje(jsonBuilder);
-        Mensaje m = new Mensaje(respuesta,1);
+
+        Mensaje m = new Mensaje(extraerContenidoComillasDobles(respuesta),1);
         Platform.runLater(() -> {
             controller.chats[controller.estoyEnConsultas].anadirMensaje(m);
             controller.agregarMensaje(m);
@@ -58,12 +62,45 @@ public class Utils {
         setConexionInsertarDatos();
         StringBuilder jsonBuilder = new StringBuilder("{\"clave\": \""+clave+"\", \"frase_competencia\": \""+datos+"\"}");
         String respuesta = enviarMensaje(jsonBuilder);
-        Mensaje m = new Mensaje(respuesta,1);
+        Mensaje m = new Mensaje(extraerContenido(respuesta),1);
         Platform.runLater(() -> {
             controller.chats[controller.estoyEnConsultas].anadirMensaje(m);
             controller.agregarMensaje(m);
             controller.esperandoMensaje=false;
         });
+    }
+
+    private static String extraerContenido(String texto) {
+        Pattern pattern = Pattern.compile("'(.*?)'");
+        Matcher matcher = pattern.matcher(texto);
+
+        if (matcher.find()) {
+            return matcher.group(1); // Retorna el primer grupo capturado
+        }
+        return null; // Retorna null si no hay coincidencias
+    }
+
+    public static String extraerContenidoComillasDobles(String texto) {
+        // Eliminar saltos de línea y asteriscos
+        texto = texto.replace("\\n", "").replace("*", "");
+
+        // Compilar el patrón para buscar contenido entre comillas dobles
+        Pattern pattern = Pattern.compile("\"(.*?)\"");
+        Matcher matcher = pattern.matcher(texto);
+
+        // Contar las comillas dobles encontradas
+        int count = 0;
+
+        // Buscar el contenido entre comillas
+        while (matcher.find()) {
+            count++;
+            // Retornar el segundo campo (cuando se encuentra el segundo par de comillas)
+            if (count == 2) {
+                return matcher.group(1);  // Retorna el contenido entre las segundas comillas dobles
+            }
+        }
+
+        return null; // Retorna null si no se encuentra el segundo campo
     }
 
     private static String enviarMensaje(StringBuilder jsonBuilder) {
@@ -132,29 +169,29 @@ public class Utils {
         }
     }
 
-        public static void showPopup (String title, String message, Alert.AlertType type){
-            // Crear unha alerta
-            Alert alert = new Alert(type);
+    public static void showPopup (String title, String message, Alert.AlertType type){
+        // Crear unha alerta
+        Alert alert = new Alert(type);
 
-            // Configurar o título e contido
-            alert.setTitle(title);
-            alert.setHeaderText(null); // Opcional, podes engadir un subtítulo
-            alert.setContentText(message);
+        // Configurar o título e contido
+        alert.setTitle(title);
+        alert.setHeaderText(null); // Opcional, podes engadir un subtítulo
+        alert.setContentText(message);
 
-            // Mostrar o popup e esperar que o usuario o peche
-            alert.showAndWait();
-        }
+        // Mostrar o popup e esperar que o usuario o peche
+        alert.showAndWait();
+    }
 
-        public static void showPopup (Exception e){
-            // Crear unha alerta
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+    public static void showPopup (Exception e){
+        // Crear unha alerta
+        Alert alert = new Alert(Alert.AlertType.ERROR);
 
-            // Configurar o título e contido
-            alert.setTitle("Error");
-            alert.setHeaderText(null); // Opcional, podes engadir un subtítulo
-            alert.setContentText(e.getMessage());
+        // Configurar o título e contido
+        alert.setTitle("Error");
+        alert.setHeaderText(null); // Opcional, podes engadir un subtítulo
+        alert.setContentText(e.getMessage());
 
-            // Mostrar o popup e esperar que o usuario o peche
-            alert.showAndWait();
-        }
+        // Mostrar o popup e esperar que o usuario o peche
+        alert.showAndWait();
+    }
 }

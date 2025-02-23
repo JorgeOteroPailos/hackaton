@@ -14,7 +14,7 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         //Cargar la ventana de inicio de sesión
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("InicioSesion.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 260, 125);
+        Scene scene = new Scene(fxmlLoader.load(), 266, 149);
         CInicioSesion controller = fxmlLoader.getController();
         controller.initCInicioSesion(stage);
         stage.setTitle("Inicio Sesión");

@@ -9,19 +9,19 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="345.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hackudc.competenciapp.CPrincipal" stylesheets="@estilos.css">
+<AnchorPane prefHeight="345.0" prefWidth="540.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hackudc.competenciapp.CPrincipal">
 
 
     <VBox prefHeight="345.0" prefWidth="540.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <HBox spacing="10" style="-fx-background-color: #eeeeee; -fx-padding: 10;">
-            <Label fx:id="nombreVentana" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" style="-fx-font-size: 16;" text="Consultas" textAlignment="CENTER" />
+        <HBox spacing="10" style="-fx-background-color: c3cfe2; -fx-padding: 10;">
+            <Label fx:id="nombreVentana" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" prefHeight="34.0" prefWidth="98.0" style="-fx-font-size: 16;" text="Consultas" textAlignment="CENTER" />
             <Region HBox.hgrow="ALWAYS" /> <!-- Espaciador -->
             <Button fx:id="botoncambiarVentana" onAction="#cambiarVentana" text="Aportaciones" />
         </HBox>
 
 
         <!-- ScrollPane para los mensajes -->
-        <ScrollPane fx:id="scrollPaneMensajes" fitToWidth="true" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+        <ScrollPane fx:id="scrollPaneMensajes" fitToWidth="true" prefHeight="222.0" prefWidth="662.0" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
             <VBox fx:id="listaMensajes" spacing="10" style="-fx-background-color: transparent;" />
         </ScrollPane>
 
@@ -29,7 +29,6 @@
         <!-- Caja de entrada de mensajes -->
         <HBox spacing="10" style="-fx-padding: 10;">
             <TextField fx:id="messageTextField" promptText="Escribe un mensaje..." HBox.hgrow="ALWAYS" />
-            <Button mnemonicParsing="false" text="Adjuntar" />
             <Button fx:id="sendButton" text="Enviar" />
         </HBox>
     </VBox>
