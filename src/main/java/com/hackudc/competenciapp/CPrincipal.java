@@ -137,7 +137,10 @@ public class CPrincipal {
             listaMensajes.getChildren().add(contenedorMensaje);
 
             // Desplazar automáticamente al final del ScrollPane
-            scrollPaneMensajes.setVvalue(1.0);
+            Platform.runLater(() -> {
+                scrollPaneMensajes.layout();
+                scrollPaneMensajes.setVvalue(1.0);
+            });
     }
 
     private void actualizarMensajes() {
@@ -148,7 +151,10 @@ public class CPrincipal {
         }
 
         // Desplaza automáticamente al final después de cargar los mensajes
-        scrollPaneMensajes.setVvalue(1.0);
+        Platform.runLater(() -> {
+            scrollPaneMensajes.layout();
+            scrollPaneMensajes.setVvalue(1.0);
+        });
 
     }
 
