@@ -16,7 +16,10 @@ public class CPrincipal {
 
     public static final String nombreVentanaConsultas="Consultas";
     private static final String nombreVentanaAportaciones="Aportaciones";
-    private Chat[] chats;
+    public Chat[] chats;
+    public boolean esperandoMensaje=false;
+
+    private String clave;
 
     @FXML
     public Button botoncambiarVentana;
@@ -31,25 +34,35 @@ public class CPrincipal {
     @FXML
     public Button sendButton;
 
+    public int estoyEnConsultas=1;
 
-
-    private int estoyEnConsultas;
+    public void setClave(String clave){
+        this.clave=clave;
+    }
 
     @FXML
     public void cambiarVentana(){
+        if(esperandoMensaje){
+            return;
+        }
         if(estoyEnConsultas==1){
             estoyEnConsultas=0;
-            botoncambiarVentana.setText(nombreVentanaAportaciones);
-            nombreVentana.setText(nombreVentanaAportaciones);
+            botoncambiarVentana.setText("Consultas");
+            nombreVentana.setText("Aportaciones");
         }
         else {
             estoyEnConsultas=1;
-            botoncambiarVentana.setText(nombreVentanaConsultas);
-            nombreVentana.setText(nombreVentanaConsultas);
+            botoncambiarVentana.setText("Aportaciones");
+            nombreVentana.setText("Consultas");
         }
+
+        actualizarMensajes();
     }
 
     public void initialize(){
+        chats=new Chat[2];
+        chats[0]=new Chat();
+        chats[1]=new Chat();
         estoyEnConsultas = 1;
         botoncambiarVentana.setText(nombreVentanaAportaciones);
         nombreVentana.setText(nombreVentanaConsultas);
@@ -67,11 +80,6 @@ public class CPrincipal {
                 enviarMensaje(); // Llama al método para enviar el mensaje
                 messageTextField.requestFocus(); // Mantener el cursor en el TextField
             }
-
-            chats=new Chat[2];
-
-            chats[0]=new Chat();
-            chats[1]=new Chat();
         });
 
         // Configurar el botón de enviar
@@ -80,25 +88,30 @@ public class CPrincipal {
     }
     @FXML
     private void enviarMensaje(){
+        if(esperandoMensaje){
+            return;
+        }
+        esperandoMensaje=true;
         String prompt = messageTextField.getText();
         messageTextField.clear();
         String respuesta;
 
         if (!prompt.isBlank()) {
-            agregarMensaje(new Mensaje(prompt,0));
+            Mensaje m=new Mensaje(prompt,0);
+            chats[estoyEnConsultas].anadirMensaje(m);
+            agregarMensaje(m);
             if(estoyEnConsultas==1){
-                System.out.println("Estoy en consultas");
-                respuesta=Utils.hacerConsulta(prompt);
+                new Thread(() -> {Utils.hacerConsulta(prompt);}).start();
             }else{
-                respuesta=Utils.insertarDatos(prompt);
+                new Thread(() -> {Utils.insertarDatos(clave,prompt);}).start();
             }
-            agregarMensaje(new Mensaje(respuesta,1));
+
         }
     }
 
-    private void agregarMensaje(Mensaje mensaje){
-        chats[mensaje.remitente].anadirMensaje(mensaje);
-        //Platform.runLater(()->{
+    public void agregarMensaje(Mensaje mensaje){
+        //chats[mensaje.remitente].anadirMensaje(mensaje);
+
             HBox contenedorMensaje = new HBox();
             VBox mensajeVBox = new VBox(5);
             mensajeVBox.setMaxWidth(300); // Limitar el ancho máximo de la burbuja del mensaje
@@ -124,8 +137,19 @@ public class CPrincipal {
             listaMensajes.getChildren().add(contenedorMensaje);
 
             // Desplazar automáticamente al final del ScrollPane
-            //Platform.runLater(() -> scrollPaneMensajes.setVvalue(1.0));
-        //});
+            scrollPaneMensajes.setVvalue(1.0);
+    }
+
+    private void actualizarMensajes() {
+        listaMensajes.getChildren().clear();
+
+        for (Mensaje mensaje : chats[estoyEnConsultas].getMensajes()) {
+            agregarMensaje(mensaje);
+        }
+
+        // Desplaza automáticamente al final después de cargar los mensajes
+        scrollPaneMensajes.setVvalue(1.0);
+
     }
 
 

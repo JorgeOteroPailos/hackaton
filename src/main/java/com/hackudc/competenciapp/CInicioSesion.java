@@ -44,6 +44,8 @@ public class CInicioSesion {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Principal.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 540, 345);
             CPrincipal controller = fxmlLoader.getController();
+            controller.setClave(clave.getText());
+            Utils.setController(controller);
             stage.setTitle(nombre);
             stage.setScene(scene);
             stage.show();

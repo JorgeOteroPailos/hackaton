@@ -19,6 +19,12 @@ public class Utils {
     static final URL INSERTAR_DATOS;
     static final URL INICIO_SESION;
 
+    private static CPrincipal controller;
+
+    public static void setController(CPrincipal controller) {
+        Utils.controller = controller;
+    }
+
     static {
         try {
             CONSULTAS = new URL("http://localhost:8000/consultar");
@@ -36,10 +42,28 @@ public class Utils {
         return enviarMensaje(jsonBuilder);
     }
 
-    public static String hacerConsulta(String consulta){
+    public static void hacerConsulta(String consulta){
         setConexionConsulta();
         StringBuilder jsonBuilder = new StringBuilder("{\"query\": \""+consulta+"\"}");
-        return enviarMensaje(jsonBuilder);
+        String respuesta = enviarMensaje(jsonBuilder);
+        Mensaje m = new Mensaje(respuesta,1);
+        Platform.runLater(() -> {
+            controller.chats[controller.estoyEnConsultas].anadirMensaje(m);
+            controller.agregarMensaje(m);
+            controller.esperandoMensaje=false;
+        });
+    }
+
+    public static void insertarDatos(String clave, String datos){
+        setConexionInsertarDatos();
+        StringBuilder jsonBuilder = new StringBuilder("{\"clave\": \""+clave+"\", \"frase_competencia\": \""+datos+"\"}");
+        String respuesta = enviarMensaje(jsonBuilder);
+        Mensaje m = new Mensaje(respuesta,1);
+        Platform.runLater(() -> {
+            controller.chats[controller.estoyEnConsultas].anadirMensaje(m);
+            controller.agregarMensaje(m);
+            controller.esperandoMensaje=false;
+        });
     }
 
     private static String enviarMensaje(StringBuilder jsonBuilder) {
@@ -59,12 +83,12 @@ public class Utils {
         }
         try (
                 BufferedReader br = new BufferedReader(new InputStreamReader(conexion.getInputStream(), StandardCharsets.UTF_8))) {
-            respuesta = new StringBuilder(new String());
+            respuesta = new StringBuilder();
             String aux;
             while ((aux = br.readLine()) != null) {
                 respuesta.append(aux.trim());
             }
-            System.out.println("Respuesta del servidor: " + respuesta);
+            System.out.println("Respuesta del servidor: " + respuesta.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -73,11 +97,7 @@ public class Utils {
 
 
 
-    public static String insertarDatos(String datos){
-        setConexionInsertarDatos();
-        StringBuilder jsonBuilder = new StringBuilder("{\"query\": \""+datos+"\"}");
-        return enviarMensaje(jsonBuilder);
-    }
+
 
     public static void setConexionConsulta() {
         try {

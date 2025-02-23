@@ -9,11 +9,10 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="345.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hackudc.competenciapp.CPrincipal">
+<AnchorPane prefHeight="345.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hackudc.competenciapp.CPrincipal" stylesheets="@estilos.css">
 
-    <!-- Área de mensajes -->
+
     <VBox prefHeight="345.0" prefWidth="540.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <!-- Cabecera del chat -->
         <HBox spacing="10" style="-fx-background-color: #eeeeee; -fx-padding: 10;">
             <Label fx:id="nombreVentana" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" style="-fx-font-size: 16;" text="Consultas" textAlignment="CENTER" />
             <Region HBox.hgrow="ALWAYS" /> <!-- Espaciador -->
