@@ -42,7 +42,7 @@ public class CInicioSesion {
         try {
             //Cargar la ventana de inicio de sesión
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Principal.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 540, 345);
+            Scene scene = new Scene(fxmlLoader.load(), 603, 399);
             CPrincipal controller = fxmlLoader.getController();
             controller.setClave(clave.getText());
             Utils.setController(controller);
