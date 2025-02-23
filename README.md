@@ -103,5 +103,5 @@ No obstante, el propio proyecto, que, como mencionamos anteriormente, cuenta con
 
 Si bien no dudamos de la completitud de nuestro código, somos conscientes de que las circunstancias en que este ha sido desarrollado lo dotan de una naturaleza (aún) burda y que requiere de ser pulida, completada y mejorada, para lo cual contamos tanto con nosotros mismos como con cualquier otro programador interesado en contribuir al código fuente. 
 
-Si hablamos de funcionalidades completas, nos hubiese gustado permitir la inserción de documentos para que pudiesen procesarse de manera similar a cómo se procesan ahora las competencias de los compañeros, o la integración con las APIs de Linkedin o Github.
+Si hablamos de funcionalidades completas, nos hubiese gustado permitir la inserción de documentos para que pudiesen procesarse de manera similar a cómo se procesan ahora las competencias de los compañeros, o la integración con las APIs de Linkedin o Github. Además, la ejecución en varias máquina requeriría la edición de las IPs del código fuente, sería óptimo que la propia aplicación lo permitiese.
 
