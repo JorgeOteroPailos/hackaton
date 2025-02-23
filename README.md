@@ -47,7 +47,7 @@ La API proporciona los siguientes endpoints:
 - **POST `/insertar`** – Agrega una competencia a un trabajador.
 - **POST `/sesion`** – Verifica la identidad de un usuario.
 
-Consulta [API_DOCS.md](API_DOCS.md) para más detalles.
+Consulta [api_docs.md](api_docs.md) para más detalles.
 
 ## Arquitectura
 
@@ -65,7 +65,7 @@ Si deseas contribuir, revisa las pautas en [contribute.md](contribute.md).
 
 ## Licencia
 
-Este proyecto está licenciado bajo los términos de la licencia incluida en el archivo `LICENSE`.
+Este proyecto está licenciado bajo los términos de la licencia incluida en el archivo `license`.
 
 ## Sobre el desarrollo del proyecto
 
