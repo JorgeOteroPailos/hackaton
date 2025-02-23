@@ -19,11 +19,11 @@ CompetenciApp es una aplicación cliente-servidor diseñada para gestionar compe
 - Aplicación de escritorio desarrollada en **JavaFX**.
 - Interfaz gráfica con archivos `.fxml` para gestionar usuarios y competencias.
 - Hojas de estilos en formato `.css` para que la interfaz resulte más atractiva al usuario.
-- Comunicación con el backend vía HTTP usando peticiones REST.
+- Comunicación con el backend vía HTTP usando peticiones POST.
 
-## Flujo de Datos
-1. **Inicio de sesión:** El usuario introduce su clave y la aplicación consulta el servidor.
-2. **Consulta de trabajadores:** Se envía una solicitud con una palabra clave y se devuelve una lista de empleados con habilidades afines.
-3. **Registro de competencia:** Se analiza una frase para extraer una competencia y se almacena en la base de datos.
+## Flujos de Datos
+- **Inicio de sesión:** El usuario introduce su clave y la aplicación consulta el servidor.
+- **Consulta de trabajadores:** Se envía una solicitud con una palabra clave y se devuelve una lista de empleados con habilidades afines.
+- **Registro de competencia:** Se analiza una frase para extraer una competencia y se almacena en la base de datos.
 
 
