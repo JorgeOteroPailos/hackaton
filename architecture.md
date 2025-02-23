@@ -26,5 +26,4 @@ CompetenciApp es una aplicación cliente-servidor diseñada para gestionar compe
 2. **Consulta de trabajadores:** Se envía una solicitud con una palabra clave y se devuelve una lista de empleados con habilidades afines.
 3. **Registro de competencia:** Se analiza una frase para extraer una competencia y se almacena en la base de datos.
 
-Para más detalles, consulta los archivos `README.md` y `API_DOCS.md`.
 
