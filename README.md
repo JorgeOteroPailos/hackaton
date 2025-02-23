@@ -1,4 +1,4 @@
-# CompetenciApp
+# CompetencIApp
 
 **CompetencIApp** es una aplicación diseñada para gestionar y consultar competencias de empleados en una empresa utilizando procesamiento de lenguaje natural e inteligencia artificial. Cuando un empleado o grupo de empleados trabajan con una tecnología, estos aprenden sobre ella, y podrán ser de utilidad para brindar ayuda a la hora de trabajar con la misma en el futuro. CompetencIApp utiliza herramientas basadas en la Inteligencia Artificial para facilitar el registro y la posterior localización de dichas experiencias útiles, evitando que el usuario no registre sus experiencias por falta de una buena accesibilidad.
 
@@ -57,11 +57,11 @@ La aplicación sigue una arquitectura cliente-servidor:
 - **Procesamiento de texto con Llama3.2 y embeddings**
 - **Cliente en Java** con JavaFX.
 
-Más información en [ARCHITECTURE.md](ARCHITECTURE.md).
+Más información en [arquitectura.md](arquitectura.md).
 
 ## Contribución
 
-Si deseas contribuir, revisa las pautas en [CONTRIBUTING.md](CONTRIBUTING.md).
+Si deseas contribuir, revisa las pautas en [contribute.md](contribute.md).
 
 ## Licencia
 
@@ -99,7 +99,7 @@ No obstante, el propio proyecto, que, como mencionamos anteriormente, cuenta con
 
 ### What's next for CompetenciApp
 
-Si bien no dudamos de la completitud de nuestro código, somos conscientes de que las circunstancias en que este ha sido desarrollado lo dotan de una naturaleza (aún) burda y que requiere de ser pulida, completada y mejorada, para lo cual contamos tanto con nosotros mismos como con cualquier interesado en el proyecto. 
+Si bien no dudamos de la completitud de nuestro código, somos conscientes de que las circunstancias en que este ha sido desarrollado lo dotan de una naturaleza (aún) burda y que requiere de ser pulida, completada y mejorada, para lo cual contamos tanto con nosotros mismos como con cualquier otro programador interesado en contribuir al código fuente. 
 
 Si hablamos de funcionalidades completas, nos hubiese gustado permitir la inserción de documentos para que pudiesen procesarse de manera similar a cómo se procesan ahora las competencias de los compañeros, o la integración con las APIs de Linkedin o Github.
 
