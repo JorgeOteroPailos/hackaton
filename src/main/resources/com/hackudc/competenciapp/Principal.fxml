@@ -28,7 +28,8 @@
 
         <!-- Caja de entrada de mensajes -->
         <HBox spacing="10" style="-fx-padding: 10;">
-            <TextField fx:id="messageTextField" promptText="Escribe un mensaje..." HBox.hgrow="ALWAYS" />
+            <TextField fx:id="messageTextField" prefHeight="31.0" prefWidth="345.0" promptText="Escribe un mensaje..." HBox.hgrow="ALWAYS" />
+         <Button fx:id="gitClick" mnemonicParsing="false" text="GITHUB URL" />
             <Button fx:id="sendButton" text="Enviar" />
         </HBox>
     </VBox>

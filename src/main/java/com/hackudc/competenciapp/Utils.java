@@ -21,6 +21,7 @@ public class Utils {
     static final URL CONSULTAS;
     static final URL INSERTAR_DATOS;
     static final URL INICIO_SESION;
+    static final URL GITHUB;
 
     private static CPrincipal controller;
 
@@ -33,6 +34,7 @@ public class Utils {
             CONSULTAS = new URL("http://localhost:8000/consultar");
             INSERTAR_DATOS = new URL("http://localhost:8000/insertar");
             INICIO_SESION = new URL("http://localhost:8000/sesion");
+            GITHUB = new URL("http://localhost:8000/agregar_github");
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
@@ -57,6 +59,7 @@ public class Utils {
             controller.esperandoMensaje=false;
         });
     }
+
 
     public static void insertarDatos(String clave, String datos){
         setConexionInsertarDatos();
