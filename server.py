@@ -143,7 +143,7 @@ def consultar_trabajadores(request : consultaStruct):
         texto =  " ".join([str({"nombre": nombre, "competencias": competencias, "correo":correo}) for nombre, competencias, _, correo in filtrados[:2]])
         prompt_template = """
         "{query}".
-        Comenta los trabajadores junto con sus correos de la lista las diferentes competencias de cada uno (no uses comillas
+        Comenta los trabajadores junto con sus correos las diferentes competencias de cada uno (no uses comillas
         , comillas dobles y usa puntos y seguido)
         """
 
