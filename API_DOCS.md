@@ -117,12 +117,6 @@ Para ejecutar la API localmente:
 
 python server.py
 
-La documentación interactiva generada por FastAPI está disponible en:
-
-Swagger UI: http://localhost:8000/docs
-
-Redoc: http://localhost:8000/redoc
-
 ## Tecnologías utilizadas
 
 FastAPI: Framework para crear la API.
